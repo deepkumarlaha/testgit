@@ -1,0 +1,19 @@
+name: Sync with Bitbucket
+
+on:
+  repository_dispatch:
+    types: [bitbucket]
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check out repository
+      uses: actions/checkout@v2
+
+    - name: Push to GitHub
+      run: |
+        git remote add bitbucket https://deepkumar_laha@bitbucket.org/deep-kumar-laha/testgit.git
+        git pull bitbucket main
+        git push origin main

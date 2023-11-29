@@ -1,0 +1,36 @@
+name: Sync with Bitbucket
+
+on:
+  schedule:
+    - cron: '*/5000 * * * *'  # Run every 5 minutes
+  workflow_dispatch:
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Git
+      run: |
+        git config user.name "GitHub Actions"
+        git config user.email "actions@github.com"
+    - name: see files here
+      run: |
+        ls
+        cat README.md
+    - name: Fetch changes from Bitbucket
+      run: |
+        git remote add bitbucket https://deepkumar_laha:ATBBV5XHXs9HHCR7dWUep6PAY2Nu8AFC627B@bitbucket.org/deep-kumar-laha/testgit.git
+        git fetch bitbucket && git reset --hard bitbucket/master
+        #git pull --allow-unrelated-histories --no-edit -Xtheirs bitbucket master  # Assuming 'master' is the default branch
+        cat README.md
+        git remote
+    - name: Add, commit, and push changes to GitHub
+      run: |
+        #git add .
+        #git commit -m "Automated sync from Bitbucket"
+        #git pull origin master --rebase
+        git push -f origin dev  # Push to the same branch that triggered the workflow

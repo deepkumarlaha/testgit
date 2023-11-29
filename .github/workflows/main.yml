@@ -33,4 +33,4 @@ jobs:
         #git add .
         #git commit -m "Automated sync from Bitbucket"
         #git pull origin master --rebase
-        git push -f origin dev  # Push to the same branch that triggered the workflow
+        git push -f origin HEAD:dev  # Push to the same branch that triggered the workflow
